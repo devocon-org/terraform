@@ -101,12 +101,6 @@ resource "aws_key_pair" "deployer" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQAREXTV1as4qvLXZZ/JwNJAZjEceqLiSrFeMOhLvPkcjF4eZhS9cQUwcthupAvbElrXRZZg5OIMeuTbtEUdHhwA8POIgUIiftmF3K7RHU7P90rFGYzb9RNEcc0wSfI044EhJhA/aclX3IQixHMyeTCec27Va0+NFZW0Q/gCKY23OdRD1QJjpzgAclIaOac+S2HSLhKIwY0ISEIs60DFMBTzjFo6iWmrvvAw4CTxK+ZZZ+p4Ct8htaawPNXggqySgg7LUHKstkZnnPoRGXgYsj5APunXLqdRv7xUt9XTRH70CPocxJ4yhrU4uBL3byhY5l+a+ST+sLap4tjSG9H1AiPWGlaiygSoHoKCLHlGcBzXglJiryrr1Om4p+a9oSrI37jnc+fJd3RF0lAbIaQP1hnzo+x0owbMH9MK0GrhSiCVl8TQnr0FSsQIbTc3kiVb8mzpVICgcJo7l+sr5etrzmcJkCyJWFGHsV6sLce9TKPMSa3HeyJSVdxlgvg4X3jRP1NZguqqAZ4h5ppdeCaOa1NeG0qu0j/CxxqBw5JLlWYK4saghoQpPKIVmEz4YS/VAVE0q04Iq36Jrz1d3eUJxNush1I3eJZ3RqmpL9N0F7g2n1Z/9g/YQG5+7o9Z+8aBYYsHQvGEJtkSybGvUxHjgxpf4jcPfxK+9qGPWQoI1kGQ== kendanicrio@gmail.com"
 }
 
-# #eip
-# resource "aws_eip" "app_zone_public_eip" {
-#   instance = aws_instance.web.id
-#   domain   = "vpc"
-# }
-
 # EC2 Instances
 resource "aws_instance" "app_zone_ec2_public_a" {
   ami                         = var.app_zone_ami_id
@@ -148,6 +142,16 @@ resource "aws_volume_attachment" "app_zone_ec2_public_a_ebs_vol_att" {
   
 }
 
+resource "aws_eip" "app_zone_eip_public_a" {
+  instance = aws_instance.app_zone_ec2_public_a.id
+  domain   = "vpc"
+}
+
+resource "aws_eip_association" "app_zone_eip_assoc_public_a" {
+  instance_id   = aws_instance.app_zone_ec2_public_a.id
+  allocation_id = aws_eip.app_zone_eip_public_a.id
+}
+
 resource "aws_instance" "app_zone_ec2_public_b" {
   ami                         = var.app_zone_ami_id
   instance_type               = var.app_zone_instance_type
@@ -168,6 +172,16 @@ resource "aws_instance" "app_zone_ec2_public_b" {
   tags = {
     Name = "application-zone-ec2-public-b"
   }
+}
+
+resource "aws_eip" "app_zone_eip_public_b" {
+  instance = aws_instance.app_zone_ec2_public_b.id
+  domain   = "vpc"
+}
+
+resource "aws_eip_association" "app_zone_eip_assoc_public_b" {
+  instance_id   = aws_instance.app_zone_ec2_public_b.id
+  allocation_id = aws_eip.app_zone_eip_public_b
 }
 
 resource "aws_ebs_volume" "app_zone_ec2_public_b_ebs_vol" {
