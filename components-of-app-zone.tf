@@ -96,41 +96,16 @@ resource "aws_route_table_association" "app_private_subnet_b_association" {
   route_table_id = aws_route_table.app_zone_vpc_private_rt.id
 }
 
-# Security Group
-resource "aws_security_group" "app_zone_vpc_sg" {
-  name        = "app_zone_vpc_sg"
-  description = "Allow all inbound traffic and all outbound traffic"
-  vpc_id      = aws_vpc.app_zone_vpc.id
-
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "application-zone-vpc-sg-allow_all"
-  }
-}
-
 resource "aws_key_pair" "deployer" {
   key_name   = var.key_name
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQAREXTV1as4qvLXZZ/JwNJAZjEceqLiSrFeMOhLvPkcjF4eZhS9cQUwcthupAvbElrXRZZg5OIMeuTbtEUdHhwA8POIgUIiftmF3K7RHU7P90rFGYzb9RNEcc0wSfI044EhJhA/aclX3IQixHMyeTCec27Va0+NFZW0Q/gCKY23OdRD1QJjpzgAclIaOac+S2HSLhKIwY0ISEIs60DFMBTzjFo6iWmrvvAw4CTxK+ZZZ+p4Ct8htaawPNXggqySgg7LUHKstkZnnPoRGXgYsj5APunXLqdRv7xUt9XTRH70CPocxJ4yhrU4uBL3byhY5l+a+ST+sLap4tjSG9H1AiPWGlaiygSoHoKCLHlGcBzXglJiryrr1Om4p+a9oSrI37jnc+fJd3RF0lAbIaQP1hnzo+x0owbMH9MK0GrhSiCVl8TQnr0FSsQIbTc3kiVb8mzpVICgcJo7l+sr5etrzmcJkCyJWFGHsV6sLce9TKPMSa3HeyJSVdxlgvg4X3jRP1NZguqqAZ4h5ppdeCaOa1NeG0qu0j/CxxqBw5JLlWYK4saghoQpPKIVmEz4YS/VAVE0q04Iq36Jrz1d3eUJxNush1I3eJZ3RqmpL9N0F7g2n1Z/9g/YQG5+7o9Z+8aBYYsHQvGEJtkSybGvUxHjgxpf4jcPfxK+9qGPWQoI1kGQ== kendanicrio@gmail.com"
 }
 
-#eip
-resource "aws_eip" "app_zone_public_eip" {
-  instance = aws_instance.web.id
-  domain   = "vpc"
-}
+# #eip
+# resource "aws_eip" "app_zone_public_eip" {
+#   instance = aws_instance.web.id
+#   domain   = "vpc"
+# }
 
 # EC2 Instances
 resource "aws_instance" "app_zone_ec2_public_a" {

@@ -99,3 +99,12 @@ variable "app_zone_root_volume_type" {
   type        = string
   # default     = "gp3"
 }
+
+
+# identity
+
+# variable "identity_zone_vpc" {
+#   description = "CIDR block for the VPC"
+#   type        = string
+# }
+

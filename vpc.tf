@@ -8,3 +8,10 @@ resource "aws_vpc" "app_zone_vpc" {
   }
 }
 
+# resource "aws_vpc" "identity_zone_vpc" {
+#   cidr_block = var.identity_zone_vpc
+
+#   tags  = {
+#     Name = "identity_zone_vpc"
+#   }
+# }
