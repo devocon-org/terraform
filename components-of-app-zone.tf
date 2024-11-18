@@ -1,15 +1,5 @@
 # create the internet components
 
-
-# VPC
-resource "aws_vpc" "app_zone_vpc" {
-  cidr_block = var.app_zone_vpc
-
-  tags = {
-    Name = "application-zone-vpc"
-  }
-}
-
 # Subnets
 resource "aws_subnet" "app_zone_vpc_public_subnet_a" {
   vpc_id                  = aws_vpc.app_zone_vpc.id
