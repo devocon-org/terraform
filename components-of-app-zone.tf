@@ -310,3 +310,4 @@ resource "aws_volume_attachment" "app_zone_ec2_private_b_ebs_vol_att" {
   instance_id  = aws_instance.app_zone_ec2_private_b.id
   force_detach = true
 }
+
