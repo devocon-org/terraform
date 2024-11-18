@@ -1,4 +1,8 @@
 # declare the variables for the resources
+variable "environment_name" {
+  description = "The name of the environment (dev, staging, prod)"
+  type = string
+}
 
 variable "aws_region" {
   description = "This is the AWS region to deploy resources"
