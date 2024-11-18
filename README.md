@@ -7,7 +7,7 @@ When you begin writing Terraform code, it’s essential to follow consistent sta
 
 
 ```bash
-resource aws_vpc "management_vpc" {
+resource aws_vpc "app_zone_vpc" {
     # 
 }
 ```
@@ -24,13 +24,16 @@ export AWS_REGION="REGION"
 
 Replace `ACCESS_KEY`, `SECRET_KEY`, and `REGION` with your actual AWS credentials and region. This will set the environment variables for your current terminal session.
 
-```console
+```cmd
 terraform init
 terraform plan -var-file=terraform-dev.tfvars
 terraform apply -auto-approve -var-file=terraform-dev.tfvars
+```
 
-# If we want to destroy use this command (Do not use prd environment)
+* If we want to destroy use this command (Do not use dev environment)
+
+```cmd
 terraform destroy -auto-approve -var-file=terraform-dev.tfvars
 ```
 
-This sequence of commands will initialize Terraform, generate a plan with the specified variables file `terraform-dev.tfvars`, and apply the configuration to provision the resources without needing manual approval.
+* This sequence of commands will initialize Terraform, generate a plan with the specified variables file `terraform-dev.tfvars`, and apply the configuration to provision the resources without needing manual approval.
