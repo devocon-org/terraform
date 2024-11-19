@@ -10,6 +10,11 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "app_zone_vpc" {
+  description = "CIDR block for the VPC"
+  type        = string
+}
+
 variable "availability_zone_a" {
   description = "Availability zone A for subnets"
   type        = string
