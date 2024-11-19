@@ -22,6 +22,11 @@ app_zone_root_volume_size        = 8
 app_zone_ebs_volume_type         = "gp3"
 app_zone_ebs_volume_size         = 5
 
+route_table_ids = [
+  aws_route_table.app_zone_vpc_public_rt.id,
+  aws_route_table.app_zone_vpc_private_rt.id
+]
+
 # #identity_zone
 # identity_zone_vpc                      = "10.40.0.0/16"
 # identity_zone_vpc_private_subnet_a     = "10.40.1.0/24"

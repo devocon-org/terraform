@@ -10,11 +10,6 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "app_zone_vpc" {
-  description = "CIDR block for the VPC"
-  type        = string
-}
-
 variable "availability_zone_a" {
   description = "Availability zone A for subnets"
   type        = string
@@ -30,7 +25,12 @@ variable "availability_zone_b" {
 variable "app_zone_vpc" {
   description = "CIDR block for the VPC"
   type        = string
-  default     = "10.30.0.0/16"
+  #default     = "10.30.0.0/16"
+}
+
+variable "route_table_ids" {
+  description = "List of route table IDs to associate with the VPC endpoints"
+  type        = list(string)
 }
 
 variable "app_zone_vpc_public_subnet_a" {

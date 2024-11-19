@@ -16,14 +16,13 @@ resource "aws_vpc" "app_zone_vpc" {
 #   }
 # }
 
-module "ssm_endpoints_vpc_1" {
-  source          = "./modules/ssm_endpoints"
-  vpc_id          = aws_vpc.app_zone_vpc.id
-  route_table_ids = ["rtb-xxxxxxxx"]  # Pass appropriate route table IDs
-}
+module "ssm_endpoints" {
+  source = "./modules/ssm_endpoints"
 
-module "ssm_endpoints_vpc_2" {
-  source          = "./modules/ssm_endpoints"
-  vpc_id          = "vpc-yyyyyyyy"
-  route_table_ids = ["rtb-yyyyyyyy"]
+  app_zone_vpc   = var.app_zone_vpc # Replace with your VPC resource
+  aws_region     = var.aws_region           # Ensure aws_region is defined somewhere
+  route_table_ids = [
+    aws_route_table.app_zone_vpc_public_rt.id,   # Public route table
+    aws_route_table.app_zone_vpc_private_rt.id    # Private route table
+  ]
 }
